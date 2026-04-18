@@ -100,3 +100,31 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
+
+/* Themed scrollbars — thin track, normal footprint */
+.cv-scrollbar-dashboard {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(163, 230, 53, 0.42) rgba(30, 30, 30, 0.95);
+}
+
+.cv-scrollbar-dashboard::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.cv-scrollbar-dashboard::-webkit-scrollbar-track {
+  background: rgba(30, 30, 30, 0.85);
+  border-radius: 100px;
+}
+
+.cv-scrollbar-dashboard::-webkit-scrollbar-thumb {
+  background: rgba(163, 230, 53, 0.35);
+  border-radius: 100px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.cv-scrollbar-dashboard::-webkit-scrollbar-thumb:hover {
+  background: rgba(190, 242, 100, 0.45);
+  background-clip: padding-box;
+}
