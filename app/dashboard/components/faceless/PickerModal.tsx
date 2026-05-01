@@ -8,6 +8,7 @@ type PickerModalProps = {
   open: boolean;
   title: string;
   description?: string;
+  size?: "default" | "wide";
   onClose: () => void;
   children: React.ReactNode;
 };
@@ -16,6 +17,7 @@ export function PickerModal({
   open,
   title,
   description,
+  size = "default",
   onClose,
   children,
 }: PickerModalProps): React.ReactElement | null {
@@ -66,7 +68,9 @@ export function PickerModal({
           "relative z-10 mx-0 flex w-full max-w-full flex-col overflow-hidden rounded-t-2xl border border-cv-border-strong bg-cv-bg-surface",
           "shadow-[0_-12px_48px_rgba(0,0,0,0.55)] ring-1 ring-cv-gold/12",
           "max-h-[min(70dvh,560px)] pb-[max(0.75rem,env(safe-area-inset-bottom))]",
-          "sm:mx-auto sm:max-h-[min(82dvh,640px)] sm:max-w-lg sm:rounded-2xl sm:pb-0 sm:shadow-2xl sm:ring-cv-gold/10",
+          size === "wide"
+            ? "sm:mx-auto sm:max-h-[min(82dvh,640px)] sm:max-w-4xl sm:rounded-2xl sm:pb-0 sm:shadow-2xl sm:ring-cv-gold/10"
+            : "sm:mx-auto sm:max-h-[min(82dvh,640px)] sm:max-w-lg sm:rounded-2xl sm:pb-0 sm:shadow-2xl sm:ring-cv-gold/10",
           "lg:max-h-[min(85dvh,720px)]",
         )}
       >

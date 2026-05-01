@@ -5,6 +5,19 @@ import type { Database } from "@/lib/types/database";
 
 type CookieSet = { name: string; value: string; options: CookieOptions };
 
+function isPublicPath(pathname: string): boolean {
+  if (pathname === "/") {
+    return true;
+  }
+  if (pathname === "/auth/callback" || pathname.startsWith("/auth/callback/")) {
+    return true;
+  }
+  if (pathname === "/api/inngest" || pathname.startsWith("/api/inngest/")) {
+    return true;
+  }
+  return false;
+}
+
 export async function updateSession(request: NextRequest): Promise<NextResponse> {
   const response = NextResponse.next({ request });
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -33,21 +46,17 @@ export async function updateSession(request: NextRequest): Promise<NextResponse>
     path === "/dashboard" || path.startsWith("/dashboard/");
   const isVerifyRoute = path === "/auth/verify";
 
-  if (!user && isDashboardRoute) {
+  if (!user) {
+    if (isPublicPath(path)) {
+      return response;
+    }
+    if (path.startsWith("/api/")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/";
     redirectUrl.searchParams.set("redirect", path);
     return NextResponse.redirect(redirectUrl);
-  }
-
-  if (!user && isVerifyRoute) {
-    const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = "/";
-    return NextResponse.redirect(redirectUrl);
-  }
-
-  if (!user) {
-    return response;
   }
 
   const provider = user.app_metadata?.provider;

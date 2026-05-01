@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Coins, Sparkles } from "lucide-react";
-import type { AspectRatioId } from "./constants";
+import type { AspectRatioId, DurationSecondsId } from "./constants";
 
 const aspectClass: Record<AspectRatioId, string> = {
   "9:16": "aspect-[9/16] max-h-[min(46dvh,440px)] w-[min(70%,260px)]",
@@ -12,10 +12,12 @@ const aspectClass: Record<AspectRatioId, string> = {
 
 export function VideoPreviewPanel({
   aspect,
+  durationSeconds,
   totalCredits,
   creditLines,
 }: {
   aspect: AspectRatioId;
+  durationSeconds: DurationSecondsId;
   totalCredits: number;
   creditLines: { label: string; value: number }[];
 }): React.ReactElement {
@@ -31,6 +33,7 @@ export function VideoPreviewPanel({
               Preview
             </p>
             <p className="mt-0.5 text-sm font-medium text-cv-text-primary">{ratioLabel}</p>
+            <p className="mt-1 text-xs text-cv-text-tertiary">Target length · {durationSeconds}s</p>
           </div>
           <span className="rounded-full border border-cv-border bg-cv-bg-elevated px-2.5 py-1 text-xs font-medium text-cv-text-secondary">
             Draft
