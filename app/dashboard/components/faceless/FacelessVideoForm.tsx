@@ -203,7 +203,7 @@ export function FacelessVideoForm(): React.ReactElement {
       audio.removeEventListener("error", onError);
     };
   }, []);
-
+  console.log("working")
   useEffect(() => {
     voiceFetchAbortRef.current?.abort();
     const controller = new AbortController();
